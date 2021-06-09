@@ -12,8 +12,6 @@ const TaskItem = ({data}) => {
             <Checkbox checked={data.done}></Checkbox>
         </Grid>
     </Grid>
-
-
     )
 }
 
