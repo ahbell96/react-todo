@@ -1,24 +1,26 @@
+import {Grid, Card, Typography} from '@material-ui/core';
+
 import logo from './logo.svg';
 import './App.css';
+import MenuBar from './components/MenuBar';
+import TasksList from './components/TasksList';
+import AddTasksDialog from './dialogs/AddTasksDialog';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grid container justify="center">
+    <AddTasksDialog></AddTasksDialog>
+      <Card style={{width:400}}>
+        <Grid container direction={'column'}>
+          <Grid item style={{flexGrow:1}}>
+            <MenuBar/>
+          </Grid>
+          <Grid item>
+            <TasksList/>
+          </Grid>
+        </Grid>
+      </Card>
+    </Grid>
   );
 }
 
