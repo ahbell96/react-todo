@@ -1,12 +1,16 @@
-import {Component, useState} from 'react'
+import {Component, useState, setState} from 'react'
 import {Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button} from "@material-ui/core"
 
 const AddTasksDialog = (props) => {
+
     const {setTasks, tasks, toggleDialog, open} = props;
     const [myForm, setMyForm] = useState({taskName:""});
+
     const onTextfieldChange = (event) => {
         const fieldName = event.target.name;
+        console.log(myForm);
         let myUpdatedForm = {...myForm};
+        console.log(myUpdatedForm);
         
         myUpdatedForm[fieldName] = event.target.value;
         setMyForm(myUpdatedForm);
