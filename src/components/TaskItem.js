@@ -1,25 +1,27 @@
 import {React, setState, useState} from 'react';
 import {Grid, Typography, Button, Checkbox} from "@material-ui/core";
 
-const TaskItem = ({data}) => {
+const TaskItem = ({data, done, index, updateTaskAtIndex, deleteTask}) => {
 
-    const currentCheckboxState = data.done;
-    const [toggleCheckbox, setToggleCheckbox] = useState({currentCheckboxState});
-
-    const setCheckbox = () => {
-        setToggleCheckbox(!toggleCheckbox);
-        console.log(toggleCheckbox);
+    const toggleCheckbox = () => {
+        data.done = !data.done;
+        updateTaskAtIndex(data, index);
     }
 
     return (
     <Grid container>
-    {console.log(toggleCheckbox)}
+    {console.log(done)}
+        <Grid item>
+            <Checkbox onClick={(e) => toggleCheckbox()} checked={data.done}></Checkbox>
+        </Grid>
         <Grid item>
             <Typography>{data.title}</Typography>
         </Grid>
+
         <Grid item style={{flexGrow: 1}}/>
+        
         <Grid item>
-            <Checkbox onClick={() => setToggleCheckbox(!toggleCheckbox)} checked={toggleCheckbox}></Checkbox>
+            {data.done ? <Button onClick={() => deleteTask(data)}>Delete</Button> : ""}
         </Grid>
     </Grid>
     )

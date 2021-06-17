@@ -6,17 +6,22 @@ import MenuBar from "./components/MenuBar";
 import TasksList from "./components/TasksList";
 import AddTasksDialog from "./dialogs/AddTasksDialog";
 import { Component } from "react";
+import Firebase from './firebase';
 
 export default class App extends Component {
   state = {
     tasks: [
-      { title: "Walk dog", done: false },
+      { title: "Walk dog", done: true },
       { title: "Feed dog", done: false },
       { title: "Clean the bins", done: false },
     ],
     addTaskDialog: false,
   };
 
+  // initialises after DOM load.
+  componentDidMount() {
+    console.log(Firebase);
+  }
 
   toggleDialog = () => {
     this.setState({addTaskDialog:!this.state.addTaskDialog});
@@ -26,6 +31,22 @@ export default class App extends Component {
   setTasks = (t) => this.setState({
     tasks : t
   })
+
+  updateTaskAtIndex = (updatedTask, index) => {
+    
+    // actual copy of state item
+    let updatedTasks = [...this.state.tasks];
+    updatedTasks[index] = updatedTask;
+    this.setState({tasks : updatedTasks});
+  }
+
+  deleteTask = (task) => {
+    const taskIndex = this.state.tasks.indexOf(task);
+    let updatedTasks = [...this.state.tasks];
+    updatedTasks.splice(taskIndex, 1);
+    this.setState({tasks: updatedTasks});
+  }
+
 
   render() {
     return (
@@ -37,7 +58,7 @@ export default class App extends Component {
               <MenuBar toggleDialog={this.toggleDialog} />
             </Grid>
             <Grid item>
-              <TasksList tasks={this.state.tasks}/>
+              <TasksList tasks={this.state.tasks} updateTaskAtIndex={this.updateTaskAtIndex} deleteTask={this.deleteTask}/>
             </Grid>
           </Grid>
         </Card>
