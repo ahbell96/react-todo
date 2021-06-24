@@ -1,5 +1,6 @@
 import {Component, useState, setState} from 'react'
 import {Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button} from "@material-ui/core"
+import { Database } from '../firebase';
 
 const AddTasksDialog = (props) => {
 
@@ -18,10 +19,13 @@ const AddTasksDialog = (props) => {
 
     const addTask = () => {
         let updatedTasks = [...tasks];
-        updatedTasks.push({title: myForm["taskName"], done: false});
-        setTasks(updatedTasks);
-        toggleDialog();
-        setMyForm({taskName:""});
+        const taskData = {title: myForm["taskName"], done: false};
+        Database.collection("tasks").add(taskData).then(documentRef => {
+            updatedTasks.push(taskData);
+            setTasks(updatedTasks);
+            toggleDialog();
+            setMyForm({taskName:""});
+        });
     }
 
 
