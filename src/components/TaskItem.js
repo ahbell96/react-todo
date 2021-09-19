@@ -9,11 +9,11 @@ const TaskItem = ({data, done, index, updateTaskAtIndex, deleteTask}) => {
     }
 
     return (
-    <Grid container alignContent='center' alignItems='center'>
+    <Grid container alignContent='center' alignItems='center' style={{border: "1px solid #fff", borderRadius: "10px", backgroundColor: "#fff", margin: "5px 0"}}>
         <Grid item>
             <Checkbox onClick={(e) => toggleCheckbox()} checked={data.done}></Checkbox>
         </Grid>
-        <Grid item style={{border: "1px solid gray", width: "200px"}}>
+        <Grid item style={{width: "200px"}}>
             <Typography>{data.title}</Typography>
         </Grid>
 
